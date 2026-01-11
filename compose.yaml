@@ -1,0 +1,7 @@
+﻿services:
+  ussddevelopment:
+    image: ussddevelopment
+    build:
+      context: .
+      dockerfile: UssdDevelopment/Dockerfile
+
