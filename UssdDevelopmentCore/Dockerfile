@@ -7,7 +7,7 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["UssdDevelopmentCore/UssdDevelopmentCore.csproj", "UssdDevelopment/"]
+COPY ["UssdDevelopmentCore/UssdDevelopmentCore.csproj", "UssdDevelopmentCore/"]
 RUN dotnet restore "UssdDevelopmentCore/UssdDevelopmentCore.csproj"
 COPY . .
 WORKDIR "/src/UssdDevelopment"
