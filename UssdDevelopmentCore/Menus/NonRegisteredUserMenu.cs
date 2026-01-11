@@ -18,7 +18,7 @@ public class NonRegisteredUserMenu : IUssdMenu
 {
     public async Task<string> DisplayAsync(IDisplayOptions options, IUssdSession session)
     {
-        return await options.SetPrompt("Welcome to NASDAC Global Money:")
+        return await options.SetPrompt("Welcome to TechPay:")
             .AddOption("1. Register")
             .AddOption("2. Receive Money")
             .AddOption("3. Cancel")
@@ -30,7 +30,7 @@ public class NonRegisteredUserMenu : IUssdMenu
         return await input.Parse()
             .Case("1", o => o.NavigateTo<RegisterMenu>())
             .Case("2", o => o.NavigateTo<ReceiveMoneyMenu>())
-            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using NASDAC Global Money."));
+            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using TechPay."));
     }
 }
 
@@ -49,7 +49,7 @@ public class RegisterMenu : IUssdMenu
         return await input.Parse()
             .Case("1", o => o.NavigateTo<WalletPinMenu>())
             .Case("0", o => o.NavigateBackAsync())
-            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using NASDAC Global Money."));
+            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using TechPay."));
     }
 }
 
@@ -57,7 +57,7 @@ public class WalletPinMenu : IUssdMenu
 {
     public async Task<string> DisplayAsync(IDisplayOptions options, IUssdSession session)
     {
-        return await options.SetPrompt("Create a NASDAC wallet PIN:")
+        return await options.SetPrompt("Create a TechPay wallet PIN:")
             .BuildAsync();
     }
 
@@ -77,7 +77,7 @@ public class ConfirmWalletPinMenu: IUssdMenu
 {
     public async Task<string> DisplayAsync(IDisplayOptions options, IUssdSession session)
     {
-        return await options.SetPrompt("Confirm NASDAC wallet PIN:")
+        return await options.SetPrompt("Confirm TechPay wallet PIN:")
             .BuildAsync();
     }
 
@@ -104,7 +104,7 @@ public class AcceptTermsAndConditionsMenu : IUssdMenu
 {
     public async Task<string> DisplayAsync(IDisplayOptions options, IUssdSession session)
     {
-        return await options.SetPrompt("To proceed with NASDAC registration:")
+        return await options.SetPrompt("To proceed with TechPay registration:")
             .AddOption("1. Confirm")
             .AddOption("2. Cancel")
             .BuildAsync();
@@ -128,7 +128,7 @@ public class AcceptTermsAndConditionsMenu : IUssdMenu
                 
                 return await options.NavigateTo<MainMenu>();
             })
-            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using NASDAC Global Money."));
+            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using TechPay."));
     }
 }
 
@@ -146,7 +146,7 @@ public class ReceiveMoneyMenu : IUssdMenu
     {
         return await input.Parse()
             .Case("1", o => o.NavigateTo<ViewVouchersMenu>())
-            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using NASDAC Global Money."));
+            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using TechPay."));
     }
 }
 
@@ -188,7 +188,7 @@ public class ViewVouchersMenu(NasdacDatabase database) : IUssdMenu
                     case "p":
                         return await options.NavigateBackAsync();
                     case "0":
-                        return await options.CloseUssdSessionAsync("Thank you for using NASDAC Global Money.");
+                        return await options.CloseUssdSessionAsync("Thank you for using TechPay.");
                 }
 
                 var vouchers = await session.GetAsync<List<VoucherTransaction>>(SessionKeys.Vouchers);

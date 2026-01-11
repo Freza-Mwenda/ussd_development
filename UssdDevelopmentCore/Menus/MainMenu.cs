@@ -18,7 +18,7 @@ public class MainMenu : IUssdMenu
 {
     public async Task<string> DisplayAsync(IDisplayOptions options, IUssdSession session)
     {
-        return await options.SetPrompt("Welcome to NASDAC Global Money:")
+        return await options.SetPrompt("Welcome to TechPay:")
             .AddOption("1. Send Money")
             .AddOption("2. Receive Money")
             .AddOption("3. Manage Wallet")
@@ -32,7 +32,7 @@ public class MainMenu : IUssdMenu
             .Case("1", o => o.NavigateTo<SendMoneyMenu>())
             .Case("2", o => o.NavigateTo<ReceiveMoneyMenu>())
             .Case("3", o => o.NavigateTo<ManageWalletMenu>())
-            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using NASDAC Global Money."));
+            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using TechPay."));
     }
 }
 
@@ -54,7 +54,7 @@ public class SendMoneyMenu : IUssdMenu
             .Case("1", o => o.NavigateTo<WalletToWalletMenu>())
             .Case("2", o => o.NavigateTo<WalletToMobileMoneyMenu>())
             .Case("p", o => o.NavigateBackAsync())
-            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using NASDAC Global Money."));
+            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using TechPay."));
     }
 }
 
@@ -134,7 +134,7 @@ public class WalletToWalletConfirmMenu(INasdacUssdService nasdacUssdService) : I
                 
                 if (!isNasdacMember)
                 {
-                    return await options.CloseUssdSessionAsync($"{recipient} is not a registered NASDAC account.");
+                    return await options.CloseUssdSessionAsync($"{recipient} is not a registered TechPay account.");
                 }
                 
                 var wallet = await new GetWalletBalanceCommand
@@ -159,7 +159,7 @@ public class WalletToWalletConfirmMenu(INasdacUssdService nasdacUssdService) : I
             })
             .Case("0", o => o.NavigateTo<MainMenu>())
             .Case("p", o => o.NavigateBackAsync())
-            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using NASDAC Global Money."));
+            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using TechPay."));
     }
 }
 
@@ -254,7 +254,7 @@ public class WalletToMobileConfirmMenu(INasdacUssdService nasdacUssdService) : I
             })
             .Case("0", o => o.NavigateTo<MainMenu>())
             .Case("p", o => o.NavigateBackAsync())
-            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using NASDAC Global Money."));
+            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using TechPay."));
     }
 }
 
@@ -280,7 +280,7 @@ public class ManageWalletMenu : IUssdMenu
             .Case("4", o => o.NavigateTo<ViewSentVouchersMenu>())
             .Case("0", o => o.NavigateTo<MainMenu>())
             .Case("p", o => o.NavigateBackAsync())
-            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using NASDAC Global Money."));
+            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using TechPay."));
     }
 }
 
@@ -335,7 +335,7 @@ public class DepositConfirmationMenu(INasdacUssdService nasdacUssdService) : IUs
             })
             .Case("0", o => o.NavigateTo<MainMenu>())
             .Case("p", o => o.NavigateBackAsync())
-            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using NASDAC Global Money."));
+            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using TechPay."));
     }
 }
 
@@ -400,7 +400,7 @@ public class WithdrawConfirmationMenu(INasdacUssdService nasdacUssdService) : IU
             })
             .Case("0", o => o.NavigateTo<MainMenu>())
             .Case("p", o => o.NavigateBackAsync())
-            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using NASDAC Global Money."));
+            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using TechPay."));
     }
 }
 
@@ -423,7 +423,7 @@ public class ViewBalanceMenu : IUssdMenu
         return await input.Parse()
             .Case("0", o => o.NavigateTo<MainMenu>())
             .Case("p", o => o.NavigateBackAsync())
-            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using NASDAC Global Money."));
+            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using TechPay."));
     }
 }
 
@@ -466,6 +466,6 @@ public class ViewSentVouchersMenu(NasdacDatabase database) : IUssdMenu
         return await input.Parse()
             .Case("0", o => o.NavigateTo<MainMenu>())
             .Case("p", o => o.NavigateBackAsync())
-            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using NASDAC Global Money."));
+            .Default((o, ex) => o.CloseUssdSessionAsync("Thank you for using TechPay."));
     }
 }
