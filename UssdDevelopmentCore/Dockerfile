@@ -7,15 +7,15 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["UssdDevelopment/UssdDevelopment.csproj", "UssdDevelopment/"]
-RUN dotnet restore "UssdDevelopment/UssdDevelopment.csproj"
+COPY ["UssdDevelopmentCore/UssdDevelopmentCore.csproj", "UssdDevelopment/"]
+RUN dotnet restore "UssdDevelopment/UssdDevelopmentCore.csproj"
 COPY . .
 WORKDIR "/src/UssdDevelopment"
-RUN dotnet build "./UssdDevelopment.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./UssdDevelopmentCore.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./UssdDevelopment.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./UssdDevelopmentCore.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
